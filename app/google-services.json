@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "21377150550",
+    "project_id": "stefanykhub",
+    "storage_bucket": "stefanykhub.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21377150550:android:ab97153c561bf2a25015f7",
+        "android_client_info": {
+          "package_name": "com.example.stefanykhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21377150550-bfmqupspogh44kvefn7sumh5brsh8s74.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.stefanykhub",
+            "certificate_hash": "3923ee3dffa5c62c0753ef7d1020d6079ec75be4"
+          }
+        },
+        {
+          "client_id": "21377150550-t9amefnevngfpfvb102bovjdec2p3jo8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK_VshE8LVsRaMm-8O5wUMbUS9UoEgMoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21377150550-t9amefnevngfpfvb102bovjdec2p3jo8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

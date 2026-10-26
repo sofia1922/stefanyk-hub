@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="materials" path="materials/" />
+    <files-path name="demo_materials" path="demo_materials/" />
+    <cache-path name="reader" path="reader/" />
+    <cache-path name="demo_reader" path="demo_reader/" />
+</paths>

@@ -1,0 +1,17 @@
+{
+  "name": "stefanyk-hub-local-demo",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "seed": "node seed.mjs",
+    "verify": "node verify.mjs",
+    "security:test": "node --test security/crypto.test.mjs && node security/integration.mjs"
+  },
+  "dependencies": {
+    "firebase-admin": "14.5.0",
+    "nodemailer": "10.2.1"
+  }
+}

@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function signedIn() {
+      return request.auth != null
+        && request.auth.token.secure_session == true
+        && request.auth.token.email_verified == true
+        && firestore.get(/databases/(default)/documents/security_accounts/$(request.auth.uid)).data.blocked == false
+        && request.auth.token.security_version == firestore.get(/databases/(default)/documents/security_accounts/$(request.auth.uid)).data.version;
+    }
+
+    function userRole() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return signedIn() && userRole() == 'ADMIN';
+    }
+
+    function isTeacher() {
+      return signedIn() && userRole() == 'TEACHER';
+    }
+
+    match /materials/{ownerId}/{fileName} {
+      allow read: if signedIn();
+      allow create, update: if (isAdmin() || (isTeacher() && request.auth.uid == ownerId))
+        && request.resource.size < 50 * 1024 * 1024
+        && request.resource.contentType.matches('application/pdf|application/zip|video/.*|image/.*|application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/msword|application/vnd.openxmlformats-officedocument.presentationml.presentation');
+      allow delete: if isAdmin() || (isTeacher() && request.auth.uid == ownerId);
+    }
+  }
+}
