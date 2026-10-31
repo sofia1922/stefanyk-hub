@@ -1,0 +1,93 @@
+{
+  "executedAt": "2026-10-26T21:54:40.576Z",
+  "environment": "Firebase Emulator Suite / demo-stefanykhub",
+  "cases": [
+    {
+      "id": "IT-001",
+      "title": "Реєстрація студента: API → Authentication та Firestore",
+      "status": "PASS",
+      "durationMs": 525,
+      "details": {
+        "uid": "6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+        "email": "lab11-1793051679249@pnu.edu.ua",
+        "emailVerified": false,
+        "document": "pending_profiles/6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+        "storedProfile": {
+          "id": "6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+          "email": "lab11-1793051679249@pnu.edu.ua",
+          "fullName": "Іван Петренко (ЛР11)",
+          "role": "STUDENT",
+          "course": "2 курс",
+          "specialty": "121 Інженерія програмного забезпечення",
+          "group": "ІПЗ-21",
+          "department": ""
+        }
+      }
+    },
+    {
+      "id": "IT-002",
+      "title": "Активація та вхід: перенесення профілю в users",
+      "status": "PASS",
+      "durationMs": 374,
+      "details": {
+        "uid": "6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+        "email": "lab11-1793051679249@pnu.edu.ua",
+        "emailVerified": true,
+        "document": "users/6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+        "pendingProfileExists": false,
+        "profileReadStatus": 200,
+        "storedProfile": {
+          "id": "6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+          "email": "lab11-1793051679249@pnu.edu.ua",
+          "fullName": "Іван Петренко (ЛР11)",
+          "role": "STUDENT",
+          "course": "2 курс",
+          "specialty": "121 Інженерія програмного забезпечення",
+          "group": "ІПЗ-21",
+          "department": ""
+        }
+      }
+    },
+    {
+      "id": "IT-003",
+      "title": "Блокування: API → стан акаунта → заборона доступу до БД",
+      "status": "PASS",
+      "durationMs": 426,
+      "details": {
+        "uid": "6zCW7lQ9Ka8Erqelbo9WNHZ2A1jJ",
+        "blocked": true,
+        "authDisabled": true,
+        "oldSessionReadStatus": 403,
+        "versionBefore": 1,
+        "versionAfter": 2,
+        "unblockedAfterTest": true
+      }
+    }
+  ],
+  "trace": [
+    {
+      "path": "/api/register",
+      "status": 200
+    },
+    {
+      "path": "/api/action",
+      "status": 200
+    },
+    {
+      "path": "/api/login",
+      "status": 200
+    },
+    {
+      "path": "/api/login",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/block",
+      "status": 200
+    },
+    {
+      "path": "/api/admin/block",
+      "status": 200
+    }
+  ]
+}

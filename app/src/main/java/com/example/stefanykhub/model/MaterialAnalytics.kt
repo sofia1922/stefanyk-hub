@@ -17,7 +17,7 @@ data class MaterialAnalytics(val events: List<MaterialActivity>) {
     fun beforeDeadline(deadline: Long) = events.count {
         it.kind == "DOWNLOAD" && it.time >= deadline - 2 * 3_600_000L && it.time < deadline
     }
-    /** Twenty-four exact, consecutive hour intervals; the right boundary is exclusive. */
+
     fun hours(end: Long): List<Int> = List(24) { index ->
         val start = end - (24 - index) * 3_600_000L
         events.count { it.kind == "DOWNLOAD" && it.time >= start && it.time < start + 3_600_000L }

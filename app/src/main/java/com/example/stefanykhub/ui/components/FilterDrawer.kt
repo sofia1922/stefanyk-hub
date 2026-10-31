@@ -55,7 +55,7 @@ fun FilterDrawerContent(
                 .fillMaxSize()
                 .padding(18.dp)
         ) {
-            // Заголовок фільтрів
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -83,7 +83,7 @@ fun FilterDrawerContent(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Блок 1: КУРС (1-4 курс, Магістратура)
+
                 item {
                     Text(
                         text = "КУРС (1–4 КУРС, МАГІСТРАТУРА)",
@@ -114,7 +114,7 @@ fun FilterDrawerContent(
                     }
                 }
 
-                // Блок 2: СЕМЕСТРИ (1 до 11)
+
                 item {
                     Text(
                         text = "СЕМЕСТР (1 – 11)",
@@ -145,7 +145,7 @@ fun FilterDrawerContent(
                     }
                 }
 
-                // Блок 3: ТИП МАТЕРІАЛУ
+
                 item {
                     Text(
                         text = "ТИП МАТЕРІАЛУ",
@@ -175,7 +175,7 @@ fun FilterDrawerContent(
                     }
                 }
 
-                // Блок 4: ДИСЦИПЛІНА (58 ДИСЦИПЛІН)
+
                 item {
                     Text(
                         text = "ДИСЦИПЛІНА (58 ДИСЦИПЛІН)",

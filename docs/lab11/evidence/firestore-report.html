@@ -1,0 +1,16 @@
+<!doctype html><meta charset="utf-8"><style>body{font:18px/1.5 system-ui;padding:35px;color:#14233a;max-width:1150px;margin:auto}h1{color:#2847a2}.ok{color:#187447}pre{font:15px/1.5 Consolas,monospace;background:#eef2f8;padding:20px;white-space:pre-wrap}table{border-collapse:collapse;width:100%}td,th{padding:10px;border:1px solid #bdc8db;text-align:left}</style><h1>Інтеграція API та Firestore</h1><p>Фактичні дані, прочитані Admin SDK з локальної бази demo-stefanykhub.</p><p>2026-10-26T21:25:16.923Z</p><table><tr><th>ID</th><th>Перевірка</th><th>Результат</th></tr><tr><td>IT-001</td><td>Реєстрація студента: API → Authentication та Firestore</td><td>PASS</td></tr><tr><td>IT-002</td><td>Активація та вхід: перенесення профілю в users</td><td>PASS</td></tr><tr><td>IT-003</td><td>Блокування: API → стан акаунта → заборона доступу до БД</td><td>PASS</td></tr></table><h2>IT-001 — студент створений у базі</h2><pre>{
+  &quot;uid&quot;: &quot;Blectof3PYAVeWIsuklc7b12pqE0&quot;,
+  &quot;email&quot;: &quot;lab11-1793049915432@pnu.edu.ua&quot;,
+  &quot;emailVerified&quot;: false,
+  &quot;document&quot;: &quot;pending_profiles/Blectof3PYAVeWIsuklc7b12pqE0&quot;,
+  &quot;storedProfile&quot;: {
+    &quot;id&quot;: &quot;Blectof3PYAVeWIsuklc7b12pqE0&quot;,
+    &quot;email&quot;: &quot;lab11-1793049915432@pnu.edu.ua&quot;,
+    &quot;fullName&quot;: &quot;Іван Петренко (ЛР11)&quot;,
+    &quot;role&quot;: &quot;STUDENT&quot;,
+    &quot;course&quot;: &quot;2 курс&quot;,
+    &quot;specialty&quot;: &quot;121 Інженерія програмного забезпечення&quot;,
+    &quot;group&quot;: &quot;ІПЗ-21&quot;,
+    &quot;department&quot;: &quot;&quot;
+  }
+}</pre><p>IT-002: після активації документ існує в users; читання профілю повернуло HTTP 200. Тестовий акаунт видалено після перевірки.</p>

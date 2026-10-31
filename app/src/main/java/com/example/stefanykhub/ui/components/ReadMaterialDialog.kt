@@ -67,7 +67,7 @@ fun ReadMaterialDialog(
     LaunchedEffect(item.id) { AppRepository.recordMaterialOpened(item.id) }
     val context = LocalContext.current
     val downloaded = AppRepository.isMaterialDownloaded(item.id)
-    var selectedReaderTab by remember { mutableIntStateOf(0) } // 0 = Повний документ (PDF/Word), 1 = Конспект
+    var selectedReaderTab by remember { mutableIntStateOf(0) }
     var fontSizeMultiplier by remember { mutableFloatStateOf(1f) }
 
     Dialog(
@@ -86,7 +86,7 @@ fun ReadMaterialDialog(
                 modifier = Modifier.fillMaxSize()
             ) {
                 AnnouncementsPanel(subject = item.subject, materialId = item.id)
-                // Верхня панель ридера
+
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = ScreenBackground,
@@ -123,7 +123,7 @@ fun ReadMaterialDialog(
                                 horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
                                 if (selectedReaderTab == 1) {
-                                    // Кнопки змінення шрифту тільки для конспекту
+
                                     IconButton(
                                         onClick = { if (fontSizeMultiplier > 0.8f) fontSizeMultiplier -= 0.1f },
                                         modifier = Modifier.size(30.dp)
@@ -139,7 +139,7 @@ fun ReadMaterialDialog(
                                     }
                                 }
 
-                                // Сердечко Обране (для студентів)
+
                                 if (showFavoriteAndDownload) {
                                     IconButton(
                                         onClick = { onFavoriteToggle(item.id) },
@@ -154,7 +154,7 @@ fun ReadMaterialDialog(
                                     }
                                 }
 
-                                // Кнопка закриття
+
                                 IconButton(
                                     onClick = onDismissRequest,
                                     modifier = Modifier.size(34.dp)
@@ -164,7 +164,7 @@ fun ReadMaterialDialog(
                             }
                         }
 
-                        // Перемикач вкладок "Оригінал документа (PDF/Word)" vs "Конспект"
+
                         MaterialReactionsBar(
                             materialId = item.id,
                             compact = true,
@@ -205,7 +205,7 @@ fun ReadMaterialDialog(
                     }
                 }
 
-                // Вміст залежно від обраної вкладки
+
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -213,17 +213,17 @@ fun ReadMaterialDialog(
                         .padding(horizontal = 14.dp, vertical = 10.dp)
                 ) {
                     if (selectedReaderTab == 0) {
-                        // Вкладка 0: Вбудований рендерер оригінального файла
+
                         NativeFileContentRenderer(item = item)
                     } else {
-                        // Вкладка 1: Розширений розбір та конспект матеріалу
+
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .verticalScroll(rememberScrollState()),
                             verticalArrangement = Arrangement.spacedBy(14.dp)
                         ) {
-                            // Картка заголовка
+
                             Surface(
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp),
@@ -272,7 +272,7 @@ fun ReadMaterialDialog(
                                 }
                             }
 
-                            // Розділ 1: Анотація
+
                             Text(
                                 text = "📌 1. Розширений зміст та анотація теми",
                                 style = MaterialTheme.typography.titleMedium.copy(fontSize = (15 * fontSizeMultiplier).sp),
@@ -295,7 +295,7 @@ fun ReadMaterialDialog(
 
                             HorizontalDivider()
 
-                            // Розділ 2: Теоретичні концепції
+
                             Text(
                                 text = "📚 2. Ключові теоретичні положення модуля",
                                 style = MaterialTheme.typography.titleMedium.copy(fontSize = (15 * fontSizeMultiplier).sp),
@@ -318,7 +318,7 @@ fun ReadMaterialDialog(
                                 color = TextPrimary
                             )
 
-                            // Блок з прикладом коду
+
                             Surface(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -352,7 +352,7 @@ fun ReadMaterialDialog(
                                 }
                             }
 
-                            // Додаткові джерела в інтернеті (Якщо викладач УВІВ посилання!)
+
                             val isWebUrl = !item.linkUrl.isNullOrBlank() && (item.linkUrl.startsWith("http://") || item.linkUrl.startsWith("https://"))
                             if (isWebUrl) {
                                 Surface(
@@ -392,7 +392,7 @@ fun ReadMaterialDialog(
                                 }
                             }
 
-                            // Теги
+
                             if (item.tags.isNotBlank()) {
                                 Surface(
                                     shape = RoundedCornerShape(12.dp),
@@ -410,7 +410,7 @@ fun ReadMaterialDialog(
                     }
                 }
 
-                // Нижня панель дій ридера
+
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
                     color = ScreenBackground,
@@ -423,7 +423,7 @@ fun ReadMaterialDialog(
                         horizontalArrangement = Arrangement.spacedBy(10.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Кнопка завантаження (для студентів)
+
                         if (showFavoriteAndDownload) {
                             OutlinedButton(
                                 onClick = { onDownloadClick(item) },
@@ -437,7 +437,7 @@ fun ReadMaterialDialog(
                             }
                         }
 
-                        // Кнопка опрацьовано
+
                         if (AppRepository.currentUser.value?.role == UserRole.STUDENT) {
                         Button(
                             onClick = { onToggleCompleted(item.id) },
@@ -486,7 +486,7 @@ fun DocumentWebViewer(
     val rawUrl = AppRepository.getDownloadedFileUri(item.id)?.toString() ?: item.linkUrl.orEmpty()
     val isWebUrl = rawUrl.startsWith("http://") || rawUrl.startsWith("https://")
 
-    // Формування чистого документа
+
     val documentHtml = remember(item) {
         val descText = item.description.ifBlank {
             "У даному матеріалі розглядаються основні методы, алгоритми та теоретичні положення з дисципліни '${item.subject}'."

@@ -39,6 +39,6 @@ fun summarizeReactions(votes: List<ReactionVote>, studentId: String): ReactionSu
     )
 }
 
-/** A second tap removes the vote; choosing a different emoji replaces it. */
+
 fun nextReaction(current: MaterialReaction?, tapped: MaterialReaction): MaterialReaction? =
     tapped.takeUnless { it == current }

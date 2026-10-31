@@ -11,10 +11,10 @@ data class User(
     val fullName: String,
     val email: String,
     val role: UserRole,
-    // Поля для студента:
+
     val course: String = "1 курс",
     val specialty: String? = null,
     val group: String? = null,
-    // Поля для викладача:
+
     val department: String? = null
 )

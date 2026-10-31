@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.stefanykhub.model.CatalogItem
+import com.example.stefanykhub.data.AppRepository
 import com.example.stefanykhub.model.SubjectCatalog
 import com.example.stefanykhub.ui.theme.LabBadgeBg
 import com.example.stefanykhub.ui.theme.LabBadgeText
@@ -48,7 +49,8 @@ fun AddItemDialog(
         tags: String,
         description: String,
         linkUrl: String?,
-        fileUri: Uri?
+        fileUri: Uri?,
+        onComplete: (Result<CatalogItem>) -> Unit
     ) -> Unit,
 ) {
     val context = LocalContext.current
@@ -56,7 +58,7 @@ fun AddItemDialog(
     var title by remember { mutableStateOf(initialItem?.title ?: "") }
     var type by remember { mutableStateOf(initialItem?.type ?: "Лабораторні") }
     var subject by remember { mutableStateOf(initialItem?.subject ?: SubjectCatalog.ALL_SUBJECTS.first()) }
-    var teacher by remember { mutableStateOf(initialItem?.teacher ?: "Пікуляк М.В.") }
+    var teacher by remember { mutableStateOf(initialItem?.teacher ?: AppRepository.currentUser.value?.fullName.orEmpty()) }
     var semester by remember { mutableIntStateOf(initialItem?.semester ?: 7) }
     var course by remember { mutableStateOf(initialItem?.course ?: "4 курс") }
     var fileType by remember { mutableStateOf(initialItem?.fileType ?: "PDF") }
@@ -65,11 +67,11 @@ fun AddItemDialog(
     var description by remember { mutableStateOf(initialItem?.description ?: "Опис навчального матеріалу...") }
     var linkUrl by remember { mutableStateOf(initialItem?.linkUrl ?: "") }
 
-    // Стан вибраного файлу з пристрою
+
     var selectedFileUri by remember { mutableStateOf<Uri?>(null) }
     var selectedFileName by remember { mutableStateOf<String?>(null) }
 
-    // Launcher для вибору файлу з пристрою ПК / смартфона
+
     val filePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
     ) { uri: Uri? ->
@@ -92,7 +94,7 @@ fun AddItemDialog(
                         if (title.isBlank()) {
                             title = name.substringBeforeLast(".")
                         }
-                        // Визначення формату файлу
+
                         val ext = name.substringAfterLast(".", "PDF").uppercase()
                         fileType = if (ext in listOf("PDF", "DOC", "DOCX", "PPTX", "ZIP", "MP4")) ext else ext
                     }
@@ -112,11 +114,16 @@ fun AddItemDialog(
     var isError by remember { mutableStateOf(false) }
     var titleError by remember { mutableStateOf<String?>(null) }
     var linkUrlError by remember { mutableStateOf<String?>(null) }
+    var isSaving by remember { mutableStateOf(false) }
+    var saveError by remember { mutableStateOf<String?>(null) }
 
     AlertDialog(
-        onDismissRequest = onDismissRequest,
+        onDismissRequest = { if (!isSaving) onDismissRequest() },
         title = {
-            Text(text = if (initialItem == null) "Публікація нового матеріалу" else "Редагування матеріалу")
+            Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                Text(text = if (initialItem == null) "Публікація нового матеріалу" else "Редагування матеріалу")
+                saveError?.let { Text(it, color = MaterialTheme.colorScheme.error, style = MaterialTheme.typography.bodySmall) }
+            }
         },
         text = {
             Column(
@@ -125,13 +132,13 @@ fun AddItemDialog(
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                // Блок вибору файлу з пристрою (комп'ютера або телефона)
+
                 Surface(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(14.dp))
                         .border(1.dp, PrimaryIndigo, RoundedCornerShape(14.dp))
-                        .clickable { filePickerLauncher.launch(arrayOf("*/*")) },
+                        .clickable(enabled = !isSaving) { filePickerLauncher.launch(arrayOf("*/*")) },
                     color = PrimaryContainerIndigo
                 ) {
                     Column(
@@ -173,7 +180,7 @@ fun AddItemDialog(
                     }
                 }
 
-                // Назва матеріалу
+
                 OutlinedTextField(
                     value = title,
                     onValueChange = {
@@ -186,7 +193,7 @@ fun AddItemDialog(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Дисципліна із 58 предметів
+
                 Box(modifier = Modifier.fillMaxWidth()) {
                     OutlinedTextField(
                         value = subject,
@@ -226,12 +233,12 @@ fun AddItemDialog(
                     }
                 }
 
-                // Вибір курсу та семестру
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Курс (1-4 курс, Магістратура)
+
                     Box(modifier = Modifier.weight(1f)) {
                         OutlinedTextField(
                             value = course,
@@ -262,7 +269,7 @@ fun AddItemDialog(
                         }
                     }
 
-                    // Семестр (1..11)
+
                     Box(modifier = Modifier.weight(1f)) {
                         OutlinedTextField(
                             value = "$semester сем",
@@ -294,7 +301,7 @@ fun AddItemDialog(
                     }
                 }
 
-                // Введення викладача
+
                 OutlinedTextField(
                     value = teacher,
                     onValueChange = { teacher = it },
@@ -303,7 +310,7 @@ fun AddItemDialog(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // Вибір типу матеріалу
+
                 Text(
                     text = "Тип матеріалу:",
                     style = MaterialTheme.typography.labelMedium
@@ -322,7 +329,7 @@ fun AddItemDialog(
                     }
                 }
 
-                // Теги та Опис
+
                 OutlinedTextField(
                     value = tags,
                     onValueChange = { tags = it },
@@ -360,11 +367,18 @@ fun AddItemDialog(
                         fontWeight = FontWeight.Bold
                     )
                 }
+                if (isSaving) {
+                    LinearProgressIndicator(Modifier.fillMaxWidth())
+                    Text("Завантажуємо файл і зберігаємо матеріал у базі…", style = MaterialTheme.typography.bodySmall)
+                }
             }
         },
         confirmButton = {
             Button(
+                enabled = !isSaving,
                 onClick = {
+                    if (isSaving) return@Button
+                    saveError = null
                     titleError = null
                     linkUrlError = null
                     isError = false
@@ -380,6 +394,7 @@ fun AddItemDialog(
                         return@Button
                     }
 
+                    isSaving = true
                     onSaveItem(
                         title.trim(),
                         type,
@@ -392,16 +407,20 @@ fun AddItemDialog(
                         tags.trim(),
                         description.trim(),
                         linkUrl.ifBlank { null },
-                        selectedFileUri
+                        selectedFileUri,
+                        { result ->
+                            isSaving = false
+                            result.onSuccess { onDismissRequest() }
+                                .onFailure { saveError = it.localizedMessage ?: "Не вдалося опублікувати матеріал. Спробуйте ще раз." }
+                        }
                     )
-                    onDismissRequest()
                 }
             ) {
-                Text("Опублікувати")
+                Text(if (isSaving) "Збереження…" else if (initialItem == null) "Опублікувати" else "Зберегти зміни")
             }
         },
         dismissButton = {
-            TextButton(onClick = onDismissRequest) {
+            TextButton(enabled = !isSaving, onClick = onDismissRequest) {
                 Text("Скасувати")
             }
         }

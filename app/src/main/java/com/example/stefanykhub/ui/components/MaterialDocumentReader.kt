@@ -35,7 +35,7 @@ private sealed interface DocumentState {
     data class Error(val message: String) : DocumentState
 }
 
-/** Only visible pages are rendered; opening a large PDF doesn't allocate every page. */
+
 private class PdfSession(context: android.content.Context, uri: Uri) : AutoCloseable {
     private val descriptor = context.contentResolver.openFileDescriptor(uri, "r")
         ?: error("Не вдалося відкрити документ.")

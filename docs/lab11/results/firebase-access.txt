@@ -1,0 +1,1 @@
+PASS: 31 emulator authentication, authorization, storage and feedback checks.

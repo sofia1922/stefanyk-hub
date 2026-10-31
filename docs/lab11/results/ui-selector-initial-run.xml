@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="12" failures="5" errors="0" skipped="0" time="0.000" timestamp="2026-10-26T21:19:43" hostname="localhost">
+  <testsuite name="com.example.stefanykhub.Lab11FunctionalTest" tests="12" failures="5" errors="0" skipped="0" time="113.743" timestamp="2026-10-26T21:19:43" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="TC004_open_english_pdf" classname="com.example.stefanykhub.Lab11FunctionalTest" time="18.150">
+      <failure>java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #366 at (l=42.0, t=414.0, r=1038.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Пошук]'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@e787aa2'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук за назвою, викладачем, дисципліною...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+2) Node #292 at (l=-767.0, t=2284.0, r=-47.0, b=2431.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@9f5c333'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук дисципліни...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 33 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at com.example.stefanykhub.Lab11FunctionalTest.search(Lab11FunctionalTest.kt:65)
+	at com.example.stefanykhub.Lab11FunctionalTest.TC004_open_english_pdf(Lab11FunctionalTest.kt:93)
+</failure>
+    </testcase>
+    <testcase name="TC010_non_university_email" classname="com.example.stefanykhub.Lab11FunctionalTest" time="7.015" />
+    <testcase name="TC009_empty_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="5.468" />
+    <testcase name="TC007_incorrect_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="29.061">
+      <failure>androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 25000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:809)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:378)
+	at com.example.stefanykhub.Lab11FunctionalTest.waitText(Lab11FunctionalTest.kt:37)
+	at com.example.stefanykhub.Lab11FunctionalTest.waitText$default(Lab11FunctionalTest.kt:36)
+	at com.example.stefanykhub.Lab11FunctionalTest.TC007_incorrect_password(Lab11FunctionalTest.kt:119)
+</failure>
+    </testcase>
+    <testcase name="TC001_valid_login" classname="com.example.stefanykhub.Lab11FunctionalTest" time="5.472" />
+    <testcase name="TC012_search_no_results" classname="com.example.stefanykhub.Lab11FunctionalTest" time="7.872">
+      <failure>java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #2127 at (l=42.0, t=414.0, r=1038.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Пошук]'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@b15ddbb'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук за назвою, викладачем, дисципліною...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+2) Node #2109 at (l=-767.0, t=2284.0, r=-47.0, b=2431.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@b8092d8'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук дисципліни...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 33 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at com.example.stefanykhub.Lab11FunctionalTest.search(Lab11FunctionalTest.kt:65)
+	at com.example.stefanykhub.Lab11FunctionalTest.TC012_search_no_results(Lab11FunctionalTest.kt:151)
+</failure>
+    </testcase>
+    <testcase name="TC002_search_existing_material" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.694">
+      <failure>java.lang.AssertionError: Failed to perform text input.
+Reason: Expected exactly '1' node but found '2' nodes that satisfy: (SetText is defined)
+Nodes found:
+1) Node #2857 at (l=42.0, t=414.0, r=1038.0, b=624.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+ContentDescription = '[Пошук]'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@296240b'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук за назвою, викладачем, дисципліною...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+2) Node #2839 at (l=-767.0, t=2284.0, r=-47.0, b=2431.0)px
+ContentDataType = 'AndroidContentDataType(androidAutofillType=1)'
+EditableText = ''
+FillableData = 'androidx.compose.ui.autofill.AndroidFillableData@46ae2e8'
+Focused = 'false'
+ImeAction = 'Default'
+InputText = ''
+IsEditable = 'true'
+Text = '[Пошук дисципліни...]'
+TextSelectionRange = 'TextRange(0, 0)'
+Actions = [ClearTextSubstitution, GetTextLayoutResult, InsertTextAtCursor, OnClick, OnFillData, OnLongClick, PasteText, PerformImeAction, RequestFocus, SetSelection, SetText, SetTextSubstitution, ShowTextSubstitution]
+MergeDescendants = 'true'
+Has 33 siblings
+
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow(SemanticsNodeInteraction.kt:178)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchOneOrThrow$default(SemanticsNodeInteraction.kt:150)
+	at androidx.compose.ui.test.SemanticsNodeInteraction.fetchSemanticsNode(SemanticsNodeInteraction.kt:84)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus(TextActions.kt:124)
+	at androidx.compose.ui.test.TextActionsKt.getNodeAndFocus$default(TextActions.kt:119)
+	at androidx.compose.ui.test.TextActionsKt.performTextInput(TextActions.kt:39)
+	at com.example.stefanykhub.Lab11FunctionalTest.search(Lab11FunctionalTest.kt:65)
+	at com.example.stefanykhub.Lab11FunctionalTest.TC002_search_existing_material(Lab11FunctionalTest.kt:75)
+</failure>
+    </testcase>
+    <testcase name="TC008_empty_email" classname="com.example.stefanykhub.Lab11FunctionalTest" time="7.834" />
+    <testcase name="TC005_progress_report" classname="com.example.stefanykhub.Lab11FunctionalTest" time="5.943" />
+    <testcase name="TC006_logout" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.396" />
+    <testcase name="TC003_course_filter" classname="com.example.stefanykhub.Lab11FunctionalTest" time="7.990">
+      <failure>androidx.test.espresso.NoActivityResumedException: Pressed back and killed the app
+	at dalvik.system.VMStack.getThreadStackTrace(Native Method)
+	at java.lang.Thread.getStackTrace(Thread.java:2852)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:34)
+	at androidx.test.espresso.base.EspressoExceptionHandler.handleSafely(EspressoExceptionHandler.java:26)
+	at androidx.test.espresso.base.DefaultFailureHandler$TypedFailureHandler.handle(DefaultFailureHandler.java:158)
+	at androidx.test.espresso.base.DefaultFailureHandler.handle(DefaultFailureHandler.java:120)
+	at androidx.test.espresso.ViewInteraction.waitForAndHandleInteractionResults(ViewInteraction.java:385)
+	at androidx.test.espresso.ViewInteraction.desugaredPerform(ViewInteraction.java:212)
+	at androidx.test.espresso.ViewInteraction.perform(ViewInteraction.java:140)
+	at androidx.test.espresso.Espresso.pressBack(Espresso.java:237)
+	at com.example.stefanykhub.Lab11FunctionalTest.TC003_course_filter(Lab11FunctionalTest.kt:84)
+</failure>
+    </testcase>
+    <testcase name="TC011_weak_registration_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="5.848" />
+  </testsuite>
+</testsuites>

@@ -1,6 +1,6 @@
 package com.example.stefanykhub.model
 
-/** Folder keys depend on the material type; changing type moves the material automatically. */
+
 fun materialFolder(type: String): String = when {
     type.trim().lowercase().startsWith("лекц") -> "Лекції"
     type.trim().lowercase().startsWith("метод") -> "Методички"

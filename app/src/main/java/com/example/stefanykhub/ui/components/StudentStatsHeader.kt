@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun StudentStatsHeader(selectedSubject: String?, modifier: Modifier = Modifier) {
     val student = AppRepository.currentUser.value?.takeIf { it.role == UserRole.STUDENT } ?: return
-    // Refresh a stale streak even if the catalog stays open overnight.
+
     LaunchedEffect(student.id) {
         while (true) {
             AppRepository.refreshStudyStreak()
@@ -99,7 +99,7 @@ fun AchievementBadges(badges: List<AchievementBadge>, modifier: Modifier = Modif
         }
     }
     selectedBadge?.let { selected ->
-        // Resolve from current state so an open dialog never displays stale achievement status.
+
         val badge = badges.firstOrNull { it.id == selected.id } ?: selected
         AlertDialog(
             onDismissRequest = { selectedBadge = null },

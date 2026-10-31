@@ -1,4 +1,4 @@
-// Administrative inventory: never import this script into the Android application.
+
 import { initializeApp, applicationDefault, deleteApp } from 'firebase-admin/app';
 import { getFirestore, FieldValue } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';

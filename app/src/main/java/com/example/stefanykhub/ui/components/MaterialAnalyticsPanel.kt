@@ -65,7 +65,7 @@ private fun MaterialAnalyticsDialog(item: CatalogItem, dismiss: () -> Unit) {
                                 Text("24 години перед дедлайном")
                             }
                         }
-                        // Fixed when the dialog opens; a fresh opening refreshes the current window.
+
                         val now = remember { System.currentTimeMillis() }
                         ActivityChart(analytics, if (beforeDeadline && config.deadline > 0) config.deadline else now)
                         AnalyticsSettingsEditor(item.id, config)

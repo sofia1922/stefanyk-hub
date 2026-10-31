@@ -29,13 +29,13 @@ fun PaginationAndActionsBar(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        // Рядок навігації по сторінках
+
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Кнопка < Попередня
+
             OutlinedButton(
                 onClick = { if (currentPage > 1) onPageChange(currentPage - 1) },
                 enabled = currentPage > 1,
@@ -49,7 +49,7 @@ fun PaginationAndActionsBar(
                 )
             }
 
-            // Номери сторінок: 1, 2...
+
             Row(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
                 verticalAlignment = Alignment.CenterVertically
@@ -75,7 +75,7 @@ fun PaginationAndActionsBar(
                 }
             }
 
-            // Кнопка Наступна >
+
             OutlinedButton(
                 onClick = { if (currentPage < totalPages) onPageChange(currentPage + 1) },
                 enabled = currentPage < totalPages,
@@ -90,7 +90,7 @@ fun PaginationAndActionsBar(
             }
         }
 
-        // Права фіксована кнопка "+ Додати матеріал" (Лише для викладачів!)
+
         if (onAddMaterialClick != null) {
             Box(
                 modifier = Modifier.fillMaxWidth(),

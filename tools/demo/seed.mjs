@@ -1,4 +1,4 @@
-// These constants deliberately cannot be overridden with a real Firebase project/host.
+
 const projectId = 'demo-stefanykhub';
 const bucketName = `${projectId}.firebasestorage.app`;
 process.env.GCLOUD_PROJECT = projectId;
@@ -13,7 +13,7 @@ const { getAuth } = await import('firebase-admin/auth');
 const { getFirestore } = await import('firebase-admin/firestore');
 const { getStorage } = await import('firebase-admin/storage');
 
-// Fail before seeding if a required emulator isn't running.
+
 for (const port of [9099, 8080, 9199]) {
   try {
     await fetch(`http://127.0.0.1:${port}/`, { signal: AbortSignal.timeout(5000) });
@@ -38,7 +38,7 @@ const users = [
 const { readFile } = await import('node:fs/promises');
 
 try {
-  // Remove obsolete demo identities and their nested progress on existing emulators.
+
   for (const n of [2, 3, 4, 5]) {
     const uid = `demo-student-${n}`;
     await db.recursiveDelete(db.doc(`users/${uid}`));
@@ -74,7 +74,7 @@ try {
   for (const user of users.filter(user => user.role === 'TEACHER')) {
     await db.doc(`allowed_teachers/${user.email}`).set({ email: user.email });
   }
-  // A not-yet-registered teacher can use this invitation to test registration.
+
   await db.doc('allowed_teachers/invited.demo@pnu.edu.ua').set({ email: 'invited.demo@pnu.edu.ua' });
 
   const titles = ['Бази даних: таблиці та SQL', 'Англійська для ІТ: спілкування в команді'];

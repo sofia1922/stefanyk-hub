@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="12" failures="0" errors="0" skipped="0" time="0.000" timestamp="2026-10-26T21:25:09" hostname="localhost">
+  <testsuite name="com.example.stefanykhub.Lab11FunctionalTest" tests="12" failures="0" errors="0" skipped="0" time="109.758" timestamp="2026-10-26T21:25:09" hostname="localhost">
+    <properties>
+      <property name="device" value="emulator-5554" />
+    </properties>
+    <testcase name="TC004_open_english_pdf" classname="com.example.stefanykhub.Lab11FunctionalTest" time="20.923" />
+    <testcase name="TC010_non_university_email" classname="com.example.stefanykhub.Lab11FunctionalTest" time="8.084" />
+    <testcase name="TC009_empty_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="4.777" />
+    <testcase name="TC007_incorrect_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.729" />
+    <testcase name="TC001_valid_login" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.694" />
+    <testcase name="TC012_search_no_results" classname="com.example.stefanykhub.Lab11FunctionalTest" time="11.580" />
+    <testcase name="TC002_search_existing_material" classname="com.example.stefanykhub.Lab11FunctionalTest" time="11.902" />
+    <testcase name="TC008_empty_email" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.005" />
+    <testcase name="TC005_progress_report" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.988" />
+    <testcase name="TC006_logout" classname="com.example.stefanykhub.Lab11FunctionalTest" time="6.760" />
+    <testcase name="TC003_course_filter" classname="com.example.stefanykhub.Lab11FunctionalTest" time="10.453" />
+    <testcase name="TC011_weak_registration_password" classname="com.example.stefanykhub.Lab11FunctionalTest" time="8.863" />
+  </testsuite>
+</testsuites>

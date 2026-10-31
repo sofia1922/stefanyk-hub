@@ -58,7 +58,7 @@ fun FileDetailsDialog(
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                // Тип і Формат
+
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -185,7 +185,7 @@ fun FileDetailsDialog(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // 1. Головна кнопка "Читати матеріал онлайн"
+
                 if (onOpenReaderClick != null) {
                     Button(
                         onClick = onOpenReaderClick,
@@ -199,7 +199,7 @@ fun FileDetailsDialog(
                     }
                 }
 
-                // 2. Дві нижні кнопки (Тільки для студентів!): Завантажити + Обране
+
                 if (showFavoriteAndDownload) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -252,7 +252,7 @@ fun FileDetailsDialog(
                     }
                 }
 
-                // Кнопка закрити вікно
+
                 TextButton(
                     onClick = onDismissRequest,
                     modifier = Modifier.align(Alignment.CenterHorizontally)

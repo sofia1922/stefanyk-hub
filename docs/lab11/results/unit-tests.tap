@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: RFC 6238 SHA1 reference vectors
+ok 1 - RFC 6238 SHA1 reference vectors
+  ---
+  duration_ms: 3.9542
+  type: 'test'
+  ...
+# Subtest: TOTP rejects replay, invalid format and expired time windows
+ok 2 - TOTP rejects replay, invalid format and expired time windows
+  ---
+  duration_ms: 1.7693
+  type: 'test'
+  ...
+# Subtest: password policy checks every required category and common passwords
+ok 3 - password policy checks every required category and common passwords
+  ---
+  duration_ms: 3.7418
+  type: 'test'
+  ...
+# Subtest: TOTP secrets are authenticated, encrypted and bound to the user
+ok 4 - TOTP secrets are authenticated, encrypted and bound to the user
+  ---
+  duration_ms: 3.7827
+  type: 'test'
+  ...
+# Subtest: CAPTCHA is an actual PNG, without a plaintext answer
+ok 5 - CAPTCHA is an actual PNG, without a plaintext answer
+  ---
+  duration_ms: 9.9933
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 222.5152

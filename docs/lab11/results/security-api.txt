@@ -1,0 +1,1 @@
+PASS: 53 security integration checks (CAPTCHA, policy, activation, replay, 2FA, rules, lockout, admin, reset).

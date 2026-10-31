@@ -11,8 +11,8 @@ const app=initializeApp({projectId:'demo-stefanykhub'},'security-integration');
 const auth=getAuth(app),db=getFirestore(app),root='http://127.0.0.1:8787';
 let checks=0,testUid;
 const email=`security-${Date.now()}@pnu.edu.ua`,password='StrongTest42!';
-// The suite runs only against localhost emulators. Restore shared IP buckets
-// afterward so test traffic does not block the user's demonstration.
+
+
 const bucketNames=['ip:127.0.0.1','register:127.0.0.1','captcha:127.0.0.1','mail-ip:127.0.0.1','action:127.0.0.1','mfa-ip:127.0.0.1'];
 const originalBuckets=await Promise.all(bucketNames.map(async name=>{const ref=db.doc(`security_limits/${digest(name)}`);return {ref,data:(await ref.get()).data()};}));
 for(const entry of originalBuckets)await entry.ref.delete();
@@ -54,7 +54,7 @@ try {
   await database(token,200);
   await api('/api/admin/audit',{},token,403);
   assert.equal((await api('/api/security/status',{},token)).emailVerified,true);
-  // Direct Firebase password login cannot bypass our server checks / rules.
+
   const raw=await fetch('http://127.0.0.1:9099/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=demo-api-key',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password,returnSecureToken:true})});
   await database((await raw.json()).idToken,403);
   const setup=await api('/api/mfa/setup',{},token);
@@ -77,7 +77,7 @@ try {
   await api('/api/mfa/disable',{code:totp(setup.secret,step+1)},token);
   result=await login(email);token=await exchange(result.customToken);
   assert.equal((await api('/api/security/status',{},token)).mfaEnabled,false);
-  // Five failed attempts lock even a correct password, and admin can unlock.
+
   for(let i=0;i<5;i++)await api('/api/login',{email,password:'Incorrect42!'},null,401);
   await api('/api/login',{email,password},null,429);
   const admin=await exchange((await login('admin.demo@pnu.edu.ua','DemoPass123!')).customToken);

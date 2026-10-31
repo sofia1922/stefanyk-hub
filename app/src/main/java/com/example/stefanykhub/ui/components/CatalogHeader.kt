@@ -45,13 +45,13 @@ fun CatalogHeader(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 10.dp)
         ) {
-            // Верхня лінія: Логотип, кнопка меню та права панель
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Ліва частина: Кнопка Меню (Фільтри) та Логотип
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -73,12 +73,12 @@ fun CatalogHeader(
                     )
                 }
 
-                // Права частина: Іконка пошуку та Кнопка виходу з акаунту
+
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Кнопка пошуку
+
                     Box(
                         modifier = Modifier
                             .size(38.dp)
@@ -95,7 +95,7 @@ fun CatalogHeader(
                         )
                     }
 
-                    // Кнопка виходу з акаунту
+
                     Box(
                         modifier = Modifier
                             .size(38.dp)
@@ -116,13 +116,13 @@ fun CatalogHeader(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Нижня лінія хедера: Чіп "Обране" ліворуч та Профіль праворуч (прикріплений охайно до правого краю)
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Ліва частина: Кнопка-чіп "Обране (N)" (для студентів) або "Мої опубліковані роботи" (для викладачів)
+
                 if (user?.role != UserRole.TEACHER) {
                     Surface(
                         onClick = onToggleFavoriteFilter,
@@ -168,7 +168,7 @@ fun CatalogHeader(
                     }
                 }
 
-                // Права частина: Аватар та ім'я користувача (Охайна плашка, вирівняна праворуч)
+
                 val userInitials = user?.fullName
                     ?.split(" ")
                     ?.mapNotNull { it.firstOrNull()?.toString() }

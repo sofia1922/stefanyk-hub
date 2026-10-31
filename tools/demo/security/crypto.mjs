@@ -47,7 +47,7 @@ export function decrypt(text, key, uid) {
   return Buffer.concat([cipher.update(data), cipher.final()]).toString('utf8');
 }
 
-// Server-generated PNG: the answer never travels to the client as text.
+
 const glyphs = {
   '2':['11110','00001','00001','01110','10000','10000','11111'],
   '3':['11110','00001','00001','01110','00001','00001','11110'],

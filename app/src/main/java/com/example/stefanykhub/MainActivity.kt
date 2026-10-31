@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.compose.BackHandler
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
@@ -145,7 +146,7 @@ fun MainAppEntry() {
         }
     }
 
-    // Показ вітального вікна після реєстрації
+
     welcomeUser?.let { newUser ->
         WelcomeOnboardingDialog(
             user = newUser,
@@ -162,8 +163,11 @@ fun EducationalCatalogScreen(
     val context = LocalContext.current
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+    BackHandler(enabled = drawerState.isOpen) {
+        scope.launch { drawerState.close() }
+    }
 
-    // Стан пошуку та фільтрів
+
     var isSearchVisible by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
     var isFavoriteFilterActive by remember { mutableStateOf(false) }
@@ -173,7 +177,7 @@ fun EducationalCatalogScreen(
     var selectedTypes by remember { mutableStateOf(setOf("Лекції", "Методички", "Лабораторні", "Практичні", "Література", "Відео/Аудіо")) }
     var selectedSubject by remember { mutableStateOf<String?>(null) }
 
-    // Стан модальних діалогів
+
     var isAddDialogOpen by remember { mutableStateOf(false) }
     var editingItem by remember { mutableStateOf<CatalogItem?>(null) }
     var selectedDetailItemId by remember { mutableStateOf<Int?>(null) }
@@ -188,10 +192,10 @@ fun EducationalCatalogScreen(
 
     val isTeacher = user.role == UserRole.TEACHER
 
-    // Фільтрація списку матеріалів
+
     val query = searchQuery.trim().lowercase()
     val filteredItems = materials.filter { item ->
-        // Викладач бачить ТІЛЬКИ свої опубліковані матеріали!
+
         val matchesTeacherOwnership = !isTeacher || item.teacherId == user.id
 
         val matchesFavorite = !isFavoriteFilterActive || item.isFavorite
@@ -297,7 +301,7 @@ fun EducationalCatalogScreen(
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                // Розгортальне поле пошуку
+
                 AnimatedVisibility(visible = isSearchVisible) {
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
@@ -324,7 +328,7 @@ fun EducationalCatalogScreen(
                     }
                 }
 
-                // Головний заголовок категорії та лічильник
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -346,13 +350,13 @@ fun EducationalCatalogScreen(
                     )
                 }
 
-                // Гейміфікація та Статистика Навчання (Для Студентів)
+
                 if (user.role == UserRole.STUDENT) {
                     AnnouncementsPanel(subject = selectedSubject)
                     StudentStatsHeader(selectedSubject = selectedSubject)
                 }
 
-                // Адаптивний каталог: Сітка для планшетів / розгортальних пристроїв та список для смартфонів
+
                 val configuration = LocalConfiguration.current
                 val isWideScreen = configuration.screenWidthDp >= 600
 
@@ -410,7 +414,7 @@ fun EducationalCatalogScreen(
                     }
                 }
 
-                // Пагінація та кнопка "Додати матеріал"
+
                 PaginationAndActionsBar(
                     currentPage = currentPage,
                     totalPages = totalPages,
@@ -419,7 +423,7 @@ fun EducationalCatalogScreen(
                 )
             }
 
-            // Попередній перегляд інформації про файл
+
             val selectedDetailItem = materials.find { it.id == selectedDetailItemId }
             selectedDetailItem?.let { item ->
                 FileDetailsDialog(
@@ -428,14 +432,14 @@ fun EducationalCatalogScreen(
                     onFavoriteToggle = { id -> AppRepository.toggleFavorite(id) },
                     onDownloadClick = { itemToDownloadState = it },
                     onOpenReaderClick = {
-                        selectedDetailItemId = null // Закриваємо перше вікно деталей
-                        readingItemId = item.id     // Відкриваємо повний екранний онлайн-ридер
+                        selectedDetailItemId = null
+                        readingItemId = item.id
                     },
                     showFavoriteAndDownload = !isTeacher
                 )
             }
 
-            // Повний онлайн-ридер матеріалу
+
             val readingItem = materials.find { it.id == readingItemId }
             readingItem?.let { item ->
                 ReadMaterialDialog(
@@ -448,7 +452,7 @@ fun EducationalCatalogScreen(
                 )
             }
 
-            // Модальний діалог підтвердження завантаження
+
             itemToDownloadState?.let { item ->
                 AlertDialog(
                     onDismissRequest = { itemToDownloadState = null },
@@ -485,11 +489,11 @@ fun EducationalCatalogScreen(
                 )
             }
 
-            // Модальний діалог створення нового матеріалу
+
             if (isAddDialogOpen) {
                 AddItemDialog(
                     onDismissRequest = { isAddDialogOpen = false },
-                    onSaveItem = { title, type, subject, teacher, fileType, fileSize, semester, course, tags, description, linkUrl, fileUri ->
+                    onSaveItem = { title, type, subject, teacher, fileType, fileSize, semester, course, tags, description, linkUrl, fileUri, complete ->
                         AppRepository.addMaterial(
                             title = title,
                             type = type,
@@ -505,21 +509,29 @@ fun EducationalCatalogScreen(
                             fileUri = fileUri
                         ) { result ->
                             result.onSuccess {
+                                searchQuery = ""
+                                isFavoriteFilterActive = false
+                                selectedSubject = null
+                                selectedCourses = selectedCourses + course
+                                selectedSemesters = selectedSemesters + semester
+                                selectedTypes = selectedTypes + type
+                                currentPage = 1
                                 Toast.makeText(context, "Опубліковано матеріал з дисципліни '$subject'", Toast.LENGTH_LONG).show()
                             }.onFailure { error ->
                                 Toast.makeText(context, error.localizedMessage ?: "Не вдалося опублікувати матеріал", Toast.LENGTH_LONG).show()
                             }
+                            complete(result)
                         }
                     }
                 )
             }
 
-            // Модальний діалог редагування
+
             editingItem?.let { item ->
                 AddItemDialog(
                     initialItem = item,
                     onDismissRequest = { editingItem = null },
-                    onSaveItem = { title, type, subject, teacher, fileType, fileSize, semester, course, tags, description, linkUrl, fileUri ->
+                    onSaveItem = { title, type, subject, teacher, fileType, fileSize, semester, course, tags, description, linkUrl, fileUri, complete ->
                         AppRepository.updateMaterial(
                             id = item.id,
                             title = title,
@@ -537,12 +549,13 @@ fun EducationalCatalogScreen(
                         ) { result ->
                             result.onSuccess { Toast.makeText(context, "Зміни збережено", Toast.LENGTH_SHORT).show() }
                                 .onFailure { error -> Toast.makeText(context, error.localizedMessage ?: "Не вдалося зберегти зміни", Toast.LENGTH_LONG).show() }
+                            complete(result)
                         }
                     }
                 )
             }
 
-            // Модальний діалог підтвердження видалення
+
             itemToDeleteState?.let { item ->
                 AlertDialog(
                     onDismissRequest = { itemToDeleteState = null },

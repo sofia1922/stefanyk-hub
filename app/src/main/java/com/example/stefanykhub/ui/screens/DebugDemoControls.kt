@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.stefanykhub.BuildConfig
 import com.example.stefanykhub.data.AppRepository
 
-/** Local emulator controls are never displayed in a release build. */
+
 @Composable
 fun DebugDemoControls(enabled: Boolean, onCredentials: (String, String) -> Unit) {
     if (!BuildConfig.DEBUG) return

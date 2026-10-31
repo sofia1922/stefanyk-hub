@@ -36,7 +36,7 @@ import kotlinx.coroutines.sync.withLock
 import org.json.JSONArray
 import org.json.JSONObject
 
-// Модель для візуального бейджа досягнень
+
 data class AchievementBadge(
     val id: String,
     val icon: String,
@@ -167,7 +167,7 @@ object AppRepository {
         db.collection("announcements").document(id).delete().addOnSuccessListener { done(null) }
             .addOnFailureListener { done(it.localizedMessage ?: "Не вдалося видалити") }
     }
-    /** Immutable server-timestamped events. Failures are visible; opening a file remains usable offline. */
+
     val analyticsWriteError = mutableStateOf<String?>(null)
 
     fun recordMaterialActivity(itemId: Int, kind: String) {
@@ -214,22 +214,22 @@ object AppRepository {
     private val downloadMutex = Mutex()
     private val readerMutex = Mutex()
 
-    // Навчальний стрік (Study Streak) - починається з 0 і зростає при активності!
+
     var studyStreakDays = mutableIntStateOf(0)
     var lastActiveDate = mutableStateOf("")
     val bestStudyStreakDays = mutableIntStateOf(0)
     private var progressLoadVersion = 0L
 
-    // База дозволених пошт викладачів
+
     val allowedTeacherEmails = mutableStateListOf<String>()
 
-    // Список навчальних матеріалів
+
     val materials = mutableStateListOf<CatalogItem>()
 
-    // Завантажені матеріали студента
+
     val downloadedItemIds = mutableStateListOf<Int>()
 
-    // Ініціалізація інстансів Firebase
+
     val isDemoMode = mutableStateOf(false)
     private var demoFirebaseApp: FirebaseApp? = null
     private val activeFirebaseApp: FirebaseApp? get() =
@@ -277,7 +277,7 @@ object AppRepository {
     private class ReactionWatch(var observers: Int = 1, var listener: ListenerRegistration? = null)
     private val reactionWatches = mutableMapOf<String, ReactionWatch>()
 
-    /** One shared listener per visible material; disposing the last view releases it. */
+
     fun observeReactions(materialId: Int): () -> Unit {
         val uid = currentUser.value?.id ?: return {}
         val key = "$uid:$materialId"
@@ -331,7 +331,7 @@ object AppRepository {
         reactionErrors.remove(materialId)
         val doc = database.collection("materials").document(materialId.toString())
             .collection("reactions").document(student.id)
-        // Firestore applies pending writes to the live snapshot immediately, including offline.
+
         val task = if (next == null) doc.delete() else doc.set(mapOf("reaction" to next.name))
         task.addOnSuccessListener {
             if (currentUser.value?.id == student.id) reactionErrors.remove(materialId)
@@ -343,17 +343,17 @@ object AppRepository {
         checkAndUpdateStreak()
     }
 
-    // Поточний авторизований користувач
+
     var currentUser = mutableStateOf<User?>(null)
     val authInitialized = mutableStateOf(false)
 
-    // Ініціалізація логіки локального збереження
+
     fun initStorage(context: Context) {
         if (prefs == null) {
             configureDemoFirebase(context)
             val storageName = if (isDemoMode.value) "stefanyk_hub_storage_demo" else "stefanyk_hub_storage"
             prefs = context.getSharedPreferences(storageName, Context.MODE_PRIVATE)
-            // Remove credentials written by older demo builds.
+
             prefs?.edit()?.remove("registered_users")?.apply()
             loadFromDisk()
             restoreSignedInUser()
@@ -565,7 +565,7 @@ object AppRepository {
         editor.apply()
     }
 
-    // Перевірка та оновлення стріку активності (наростає від 0 при реальній активності)
+
     fun checkAndUpdateStreak() {
         val user = currentUser.value?.takeIf { it.role == UserRole.STUDENT } ?: return
         val updated = storedStudyStreak(user.id).recordActivity(LocalDate.now())
@@ -595,20 +595,20 @@ object AppRepository {
         if (materials.any { it.id == itemId }) checkAndUpdateStreak()
     }
 
-    // Перевірка, чи належить пошта домену ПНУ
+
     fun isUniversityEmail(email: String): Boolean {
         val cleanEmail = email.trim().lowercase()
         val isValidEmail = android.util.Patterns.EMAIL_ADDRESS.matcher(cleanEmail).matches()
         return isValidEmail && (cleanEmail.endsWith("@pnu.edu.ua") || cleanEmail.endsWith("@stefanyk.edu.ua"))
     }
 
-    // Перевірка пошти викладача
+
     fun isTeacherEmailAllowed(email: String): Boolean {
         val cleanEmail = email.trim().lowercase()
         return isUniversityEmail(cleanEmail) && allowedTeacherEmails.contains(cleanEmail)
     }
 
-    // Додавання пошти викладача
+
     fun addTeacherEmail(email: String, onComplete: (Result<Unit>) -> Unit = {}) {
         val cleanEmail = email.trim().lowercase()
         val database = firestore
@@ -625,7 +625,7 @@ object AppRepository {
             .addOnFailureListener { onComplete(Result.failure(it)) }
     }
 
-    // Видалення пошти викладача
+
     fun removeTeacherEmail(email: String, onComplete: (Result<Unit>) -> Unit = {}) {
         val cleanEmail = email.trim().lowercase()
         val database = firestore
@@ -664,7 +664,7 @@ object AppRepository {
     fun sendPasswordReset(email: String, onComplete: (Result<Unit>) -> Unit) =
         SecureAuth.reset(email, onComplete)
 
-    // Вихід з акаунту
+
     fun logout() {
         SecurityApi.cancelChallenge()
         reactionWatches.values.forEach { it.listener?.remove() }
@@ -684,7 +684,7 @@ object AppRepository {
         }
     }
 
-    // Перемикання "Обране"
+
     fun toggleFavorite(itemId: Int) {
         val userId = currentUser.value?.id ?: return
         val key = "favorites_$userId"
@@ -746,7 +746,7 @@ object AppRepository {
             }
     }
 
-    // Completed state belongs to the signed-in student, not to the shared material record.
+
     fun toggleCompleted(itemId: Int) {
         val userId = currentUser.value?.takeIf { it.role == UserRole.STUDENT }?.id ?: return
         if (materials.none { it.id == itemId }) return
@@ -772,7 +772,7 @@ object AppRepository {
         if (isCompleted) completedDoc?.set(mapOf("materialId" to itemId)) else completedDoc?.delete()
     }
 
-    /** Downloads a remote file or copies a selected local document into app-private storage. */
+
     suspend fun downloadMaterial(context: Context, itemId: Int): Result<Uri> {
         return downloadMutex.withLock {
             getDownloadedFileUri(itemId)?.let { return@withLock Result.success(it) }
@@ -859,7 +859,7 @@ object AppRepository {
     fun isMaterialDownloaded(itemId: Int): Boolean =
         itemId in downloadedItemIds && getDownloadedFileUri(itemId) != null
 
-    /** A read cache is separate from the student's explicitly downloaded/offline list. */
+
     suspend fun prepareMaterialForReading(context: Context, item: CatalogItem): Result<Uri> = readerMutex.withLock {
         getDownloadedFileUri(item.id)?.let { return@withLock Result.success(it) }
         val source = item.linkUrl?.takeIf(String::isNotBlank)
@@ -907,7 +907,7 @@ object AppRepository {
         }
     }
 
-    // CREATE: збереження матеріалу в локальному кеші та Firestore.
+
     fun addMaterial(
         title: String,
         type: String,
@@ -929,6 +929,11 @@ object AppRepository {
             onComplete(Result.failure(IllegalStateException("Потрібен вхід у Firebase для публікації матеріалу")))
             return
         }
+        val contentType = materialContentType(fileType)
+        if (fileUri != null && contentType == null) {
+            onComplete(Result.failure(IllegalArgumentException("Непідтримуваний формат файлу. Оберіть PDF, Word, PPTX, ZIP, MP4 або зображення.")))
+            return
+        }
         val newId = (materials.maxOfOrNull { it.id } ?: 0) + 1
         val newItem = CatalogItem(
             id = newId,
@@ -936,7 +941,7 @@ object AppRepository {
             type = type,
             subject = subject,
             teacher = teacherName,
-            teacherId = currentUser.value?.id ?: "",
+            teacherId = author.id,
             date = "Сьогодні",
             fileType = fileType,
             fileSize = fileSize,
@@ -961,7 +966,7 @@ object AppRepository {
                 .set(catalogItemToMap(item))
                 .addOnSuccessListener {
                     val index = materials.indexOfFirst { it.id == newId }
-                    if (index != -1) materials[index] = item
+                    if (index != -1) materials[index] = item else materials.add(0, item)
                     saveToDisk()
                     onComplete(Result.success(item))
                 }
@@ -981,7 +986,7 @@ object AppRepository {
             }
             val extension = fileType.lowercase().filter(Char::isLetterOrDigit).ifBlank { "bin" }
             val reference = storage.reference.child("materials/${author.id}/$newId.$extension")
-            reference.putFile(fileUri)
+            reference.putFile(fileUri, com.google.firebase.storage.StorageMetadata.Builder().setContentType(contentType).build())
                 .continueWithTask { task ->
                     if (!task.isSuccessful) throw task.exception ?: IllegalStateException("Не вдалося завантажити файл")
                     reference.downloadUrl
@@ -995,7 +1000,7 @@ object AppRepository {
         }
     }
 
-    // UPDATE: оновлення локального кешу та Firestore.
+
     fun updateMaterial(
         id: Int,
         title: String,
@@ -1016,6 +1021,11 @@ object AppRepository {
         val author = currentUser.value
         if (database == null || author == null) {
             onComplete(Result.failure(IllegalStateException("Потрібен вхід у Firebase для редагування матеріалу")))
+            return
+        }
+        val contentType = materialContentType(fileType)
+        if (fileUri != null && contentType == null) {
+            onComplete(Result.failure(IllegalArgumentException("Непідтримуваний формат файлу. Оберіть PDF, Word, PPTX, ZIP, MP4 або зображення.")))
             return
         }
         val index = materials.indexOfFirst { it.id == id }
@@ -1069,7 +1079,7 @@ object AppRepository {
                 val oldExtension = existing.fileType.lowercase().filter(Char::isLetterOrDigit).ifBlank { "bin" }
                 val extension = fileType.lowercase().filter(Char::isLetterOrDigit).ifBlank { "bin" }
                 val reference = storage.reference.child("materials/${existing.teacherId}/$id.$extension")
-                reference.putFile(fileUri)
+                reference.putFile(fileUri, com.google.firebase.storage.StorageMetadata.Builder().setContentType(contentType).build())
                     .continueWithTask { task ->
                         if (!task.isSuccessful) throw task.exception ?: IllegalStateException("Не вдалося завантажити файл")
                         reference.downloadUrl
@@ -1092,7 +1102,7 @@ object AppRepository {
         }
     }
 
-    // DELETE: видалення з кешу та Firestore.
+
     fun deleteMaterial(itemId: Int) {
         val deletedMaterial = materials.firstOrNull { it.id == itemId }
         materials.removeAll { it.id == itemId }
@@ -1111,7 +1121,7 @@ object AppRepository {
         }
     }
 
-    // Розрахунок статистики та досягнень (Badges)
+
     fun getCompletedCount(): Int = materials.count { it.isCompleted }
 
     fun getOverallProgressRatio(): Float {

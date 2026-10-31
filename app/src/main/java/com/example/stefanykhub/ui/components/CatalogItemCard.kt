@@ -53,13 +53,13 @@ fun CatalogItemCard(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Верхня лінія: Тег типу, Статус опрацювання та Кнопка обраного
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Тег типу матеріалу
+
                 val (badgeBg, badgeText) = when (item.type) {
                     "Лабораторні", "Лабораторна" -> LabBadgeBg to LabBadgeText
                     "Лекції", "Лекція" -> LectureBadgeBg to LectureBadgeText
@@ -84,13 +84,13 @@ fun CatalogItemCard(
                         )
                     }
 
-                    // Чекбокс / Чіп стан "Опрацьовано / Виконано" (для студентів)
+
                     if (isStudent && onToggleCompleted != null && showFavoriteAndDownload) {
                         CompletionChip(item.isCompleted, onToggle = { onToggleCompleted(item.id) })
                     }
                 }
 
-                // Іконка сердечка (Обране - Тільки для студентів!)
+
                 if (showFavoriteAndDownload) {
                     IconButton(
                         onClick = { onFavoriteToggle(item.id) },
@@ -108,7 +108,7 @@ fun CatalogItemCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Назва матеріалу
+
             Text(
                 text = item.title,
                 style = MaterialTheme.typography.titleMedium,
@@ -118,14 +118,14 @@ fun CatalogItemCard(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            // Інформація: Дисципліна
+
             Text(
                 text = "Дисципліна: ${item.subject}",
                 style = MaterialTheme.typography.bodySmall,
                 color = TextSecondary
             )
 
-            // Інформація: Викладач та дата
+
             Text(
                 text = "Викладач: ${item.teacher} • ${item.date}",
                 style = MaterialTheme.typography.bodySmall,
@@ -149,7 +149,7 @@ fun CatalogItemCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Нижня лінія: Формат/розмір файлу, Редагування/Видалення, Завантажити (Тільки для студентів!)
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,

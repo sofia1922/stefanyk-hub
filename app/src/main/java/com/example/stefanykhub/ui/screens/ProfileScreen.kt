@@ -145,7 +145,7 @@ fun ProfileScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            // Картка профілю користувача (Всі деталі відцентровано по середині!)
+
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = Color.White,
@@ -157,7 +157,7 @@ fun ProfileScreen(
                         .padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Аватарка з ініціалами
+
                     val initials = user.fullName
                         .split(" ")
                         .mapNotNull { it.firstOrNull()?.toString() }
@@ -218,7 +218,7 @@ fun ProfileScreen(
 
                     Spacer(modifier = Modifier.height(14.dp))
 
-                    // Картка деталей профілю (По центру)
+
                     Text("Електронну пошту підтверджено • акаунт активовано", style = MaterialTheme.typography.bodySmall)
                     AccountSecurity(user, onSessionEnded = { AppRepository.logout(); onLogoutClick() })
                     Card(
@@ -280,7 +280,7 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Вкладки залежно від ролі
+
             ScrollableTabRow(
                 selectedTabIndex = selectedTab,
                 edgePadding = 0.dp,
@@ -354,7 +354,7 @@ fun ProfileScreen(
                 }
             }
 
-            // Вміст розділу Адміна "База викладачів"
+
             if (user.role == UserRole.ADMIN && selectedTab == 4) {
                 UniversityPulseDashboard()
             } else if (user.role == UserRole.ADMIN && selectedTab == 3) {
@@ -471,7 +471,7 @@ fun ProfileScreen(
                     }
                 }
             } else {
-                // Вміст вкладок для інших режимів
+
                 val currentList = if (user.role == UserRole.STUDENT) {
                     if (selectedTab == 0) favoriteMaterials.value else downloadedMaterials.value
                 } else if (user.role == UserRole.ADMIN) {

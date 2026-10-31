@@ -42,7 +42,7 @@ fun AuthScreen(
     var isRegisterMode by remember { mutableStateOf(false) }
     var selectedRole by remember { mutableStateOf(UserRole.STUDENT) }
 
-    // Поля вводу користувача
+
     var fullName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -57,16 +57,16 @@ fun AuthScreen(
         secondFactorCode = ""
     }
 
-    // Поля студента
+
     var specialty by remember { mutableStateOf("") }
     var group by remember { mutableStateOf("") }
     var course by remember { mutableStateOf("") }
     var courseMenuExpanded by remember { mutableStateOf(false) }
 
-    // Поля викладача
+
     var department by remember { mutableStateOf("") }
 
-    // Помилки
+
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var registrationNotice by remember { mutableStateOf<String?>(null) }
     var isSubmitting by remember { mutableStateOf(false) }
@@ -101,7 +101,7 @@ fun AuthScreen(
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Логотип
+
                     Icon(
                         imageVector = Icons.Default.School,
                         contentDescription = null,
@@ -126,7 +126,7 @@ fun AuthScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Перемикач Режимів Вхід / Реєстрація
+
                     DebugDemoControls(enabled = !isSubmitting) { demoEmail, demoPassword ->
                         isRegisterMode = false
                         email = demoEmail
@@ -158,7 +158,7 @@ fun AuthScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Валідаційні підказки та помилки полів
+
                     var fullNameError by remember { mutableStateOf<String?>(null) }
                     var emailError by remember { mutableStateOf<String?>(null) }
                     var passwordError by remember { mutableStateOf<String?>(null) }
@@ -168,7 +168,7 @@ fun AuthScreen(
                     var departmentError by remember { mutableStateOf<String?>(null) }
 
                     if (isRegisterMode) {
-                        // Вибір ролі при реєстрації
+
                         Text(
                             text = "Виберіть ваш статус:",
                             style = MaterialTheme.typography.labelMedium,
@@ -205,7 +205,7 @@ fun AuthScreen(
 
                         Spacer(modifier = Modifier.height(14.dp))
 
-                        // ПІБ
+
                         OutlinedTextField(
                             value = fullName,
                             onValueChange = {
@@ -223,7 +223,7 @@ fun AuthScreen(
                         Spacer(modifier = Modifier.height(6.dp))
                     }
 
-                    // Пошта / Логін
+
                     OutlinedTextField(
                         value = email,
                         onValueChange = {
@@ -240,7 +240,7 @@ fun AuthScreen(
                     )
                     Spacer(modifier = Modifier.height(6.dp))
 
-                    // Пароль
+
                     OutlinedTextField(
                         value = password,
                         onValueChange = {
@@ -357,7 +357,7 @@ fun AuthScreen(
                         }
                     }
 
-                    // Вивід загальної помилки
+
                     errorMessage?.let { err ->
                         Spacer(modifier = Modifier.height(10.dp))
                         Surface(
@@ -394,7 +394,7 @@ fun AuthScreen(
                         )
                         TextButton(onClick = { SecurityApi.cancelChallenge(); secondFactorCode = "" }) { Text("Почати вхід знову") }
                     }
-                    // Кнопка відправки
+
                     Button(
                         onClick = {
                             errorMessage = null

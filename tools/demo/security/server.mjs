@@ -73,7 +73,7 @@ async function consume(token,kind) {
 async function sendAction(uid,kind) {
   const user=await auth.getUser(uid);
   const token=await ticket(kind,uid,{version:(await state(uid)).version},kind==='verify'?60*60_000:30*60_000);
-  // Fragment keeps the token out of HTTP request logs and Referer headers.
+
   const link=`${publicUrl}/action#${kind}:${token}`;
   const subject=kind==='verify'?'Підтвердження пошти Stefanyk.Hub':'Відновлення пароля Stefanyk.Hub';
   if(demo) {

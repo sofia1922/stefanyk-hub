@@ -2,7 +2,7 @@ package com.example.stefanykhub.model
 
 import java.time.LocalDate
 
-/** Calendar dates use the device's local timezone and ISO-8601 format. */
+
 data class StudyStreak(val days: Int = 0, val lastActiveDate: String = "", val bestDays: Int = 0) {
     fun visibleDays(today: LocalDate): Int {
         val last = runCatching { LocalDate.parse(lastActiveDate) }.getOrNull() ?: return 0
@@ -11,7 +11,7 @@ data class StudyStreak(val days: Int = 0, val lastActiveDate: String = "", val b
 
     fun recordActivity(today: LocalDate): StudyStreak {
         val last = runCatching { LocalDate.parse(lastActiveDate) }.getOrNull()
-        // Repeated actions and a clock moved backwards must not inflate the streak.
+
         if (last != null && !last.isBefore(today)) return this
         val next = if (last == today.minusDays(1)) days.coerceAtLeast(0) + 1 else 1
         return StudyStreak(next, today.toString(), maxOf(bestDays, next))
