@@ -1,0 +1,28 @@
+classDiagram
+class CatalogFilter {
+  <<interface>>
+  +matches(CatalogItem) Boolean
+}
+class AllOfFilter
+class AnyOfFilter
+class SearchFilter
+class CourseFilter
+class SemesterFilter
+class TypeFilter
+class SubjectFilter
+class FavoriteFilter
+class TeacherOwnershipFilter
+CatalogFilter <|.. AllOfFilter
+CatalogFilter <|.. AnyOfFilter
+CatalogFilter <|.. SearchFilter
+CatalogFilter <|.. CourseFilter
+CatalogFilter <|.. SemesterFilter
+CatalogFilter <|.. TypeFilter
+CatalogFilter <|.. SubjectFilter
+CatalogFilter <|.. FavoriteFilter
+CatalogFilter <|.. TeacherOwnershipFilter
+AllOfFilter *-- "0..*" CatalogFilter : children
+AnyOfFilter *-- "0..*" CatalogFilter : children
+EducationalCatalogScreen --> CatalogFilter : matches
+CatalogFilterBuilder --> AllOfFilter : creates root
+CatalogFilterBuilder --> AnyOfFilter : creates selections

@@ -1,0 +1,98 @@
+{
+  "recordedAt": "2026-10-31T22:25:05.288918",
+  "baseline": [
+    {
+      "name": "com.example.stefanykhub.DifficultyFeedbackTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.076"
+    },
+    {
+      "name": "com.example.stefanykhub.ExampleUnitTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.001"
+    },
+    {
+      "name": "com.example.stefanykhub.MaterialReactionTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.014"
+    },
+    {
+      "name": "com.example.stefanykhub.StudyStatisticsTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.029"
+    }
+  ],
+  "final": [
+    {
+      "name": "com.example.stefanykhub.CatalogFilterTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.272"
+    },
+    {
+      "name": "com.example.stefanykhub.DifficultyAnalysisFacadeTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.04"
+    },
+    {
+      "name": "com.example.stefanykhub.DifficultyFeedbackTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.006"
+    },
+    {
+      "name": "com.example.stefanykhub.ExampleUnitTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.001"
+    },
+    {
+      "name": "com.example.stefanykhub.MaterialReactionTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.014"
+    },
+    {
+      "name": "com.example.stefanykhub.StudyStatisticsTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.039"
+    }
+  ],
+  "baselineCommand": ".\\gradlew.bat :app:testDebugUnitTest --console=plain",
+  "finalCommand": ".\\gradlew.bat :app:testDebugUnitTest :app:assembleDebug --console=plain",
+  "baselineBuild": "BUILD SUCCESSFUL",
+  "finalBuild": "BUILD SUCCESSFUL",
+  "filterConfigurationsCompared": 2592,
+  "apk": {
+    "path": "app\\build\\outputs\\apk\\debug\\app-debug.apk",
+    "bytes": 24260378,
+    "sha256": "da09fbcaee62c47c81536773ddbc5cf8d92fa8cf16290486e7033b8b99ed17ec"
+  },
+  "uiChecks": "Not run: no device/emulator attached"
+}

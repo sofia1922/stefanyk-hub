@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.stefanykhub.StudyStatisticsTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-31T20:22:52.637Z" hostname="DESKTOP-4HLOKTI" time="0.029">
+  <properties/>
+  <testcase name="missedDayResetsCurrentStreakButPreservesRecord" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.02"/>
+  <testcase name="progressHandlesEmptyCatalogAndComputesPercentage" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.001"/>
+  <testcase name="leapDayAndYearBoundaryAreConsecutiveDates" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.002"/>
+  <testcase name="clockMovedBackwardsCannotIncreaseOrOverwriteStreak" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.0"/>
+  <testcase name="consecutiveCalendarDayExtendsStreakAndRecord" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.001"/>
+  <testcase name="yesterdayRemainsVisibleBeforeTodaysActivity" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.0"/>
+  <testcase name="ukrainianDayLabelsHandleTeensAndCompoundNumbers" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.002"/>
+  <testcase name="firstActivityStartsAtOneAndRepeatedActionsDoNotIncreaseIt" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.002"/>
+  <testcase name="oldDemoDatesAndInvalidDatesRestartSafely" classname="com.example.stefanykhub.StudyStatisticsTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

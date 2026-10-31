@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.stefanykhub.DifficultyFeedbackTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-10-31T20:22:52.532Z" hostname="DESKTOP-4HLOKTI" time="0.076">
+  <properties/>
+  <testcase name="smallPositiveSampleIsLabelledAsEarlyFeedback" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.024"/>
+  <testcase name="oneQuestionIsNotEnoughForAnAlertDespiteHighPercentage" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.001"/>
+  <testcase name="emptyFeedbackHasZeroDifficulty" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.004"/>
+  <testcase name="positiveResponsesProduceAGoodStatus" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.0"/>
+  <testcase name="combinedDifficultAndQuestionVotesTriggerAttention" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.001"/>
+  <testcase name="equalPositiveAndConcernVotesAreMixed" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.0"/>
+  <testcase name="noFeedbackIsNotConfusedWithAGoodRating" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.0"/>
+  <testcase name="subjectIndexIsWeightedByNumberOfResponses" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.025"/>
+  <testcase name="rankingPrioritizesActionableSignalsOverTinySamples" classname="com.example.stefanykhub.DifficultyFeedbackTest" time="0.006"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

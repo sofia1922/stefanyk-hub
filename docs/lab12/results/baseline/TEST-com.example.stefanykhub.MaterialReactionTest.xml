@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.stefanykhub.MaterialReactionTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-31T20:22:52.617Z" hostname="DESKTOP-4HLOKTI" time="0.014">
+  <properties/>
+  <testcase name="countsAndOwnReactionAreIndependentForEachStudent" classname="com.example.stefanykhub.MaterialReactionTest" time="0.006"/>
+  <testcase name="repeatedTapRemovesAndDifferentTapReplacesTheReaction" classname="com.example.stefanykhub.MaterialReactionTest" time="0.001"/>
+  <testcase name="difficultySignalRequiresThreeVotesAndStrictMajorityOfResponses" classname="com.example.stefanykhub.MaterialReactionTest" time="0.005"/>
+  <testcase name="oneStudentNeverAddsMoreThanOneVote" classname="com.example.stefanykhub.MaterialReactionTest" time="0.001"/>
+  <testcase name="emptyCollectionHasNoOwnReactionOrSignal" classname="com.example.stefanykhub.MaterialReactionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.stefanykhub.data.AppRepository
 import com.example.stefanykhub.model.CatalogItem
+import com.example.stefanykhub.model.catalog.buildCatalogFilter
 import com.example.stefanykhub.model.User
 import com.example.stefanykhub.model.UserRole
 import com.example.stefanykhub.ui.components.*
@@ -194,34 +195,16 @@ fun EducationalCatalogScreen(
 
 
     val query = searchQuery.trim().lowercase()
-    val filteredItems = materials.filter { item ->
-
-        val matchesTeacherOwnership = !isTeacher || item.teacherId == user.id
-
-        val matchesFavorite = !isFavoriteFilterActive || item.isFavorite
-
-        val matchesSearch = query.isEmpty() ||
-                item.title.lowercase().contains(query) ||
-                item.type.lowercase().contains(query) ||
-                item.subject.lowercase().contains(query) ||
-                item.teacher.lowercase().contains(query) ||
-                item.tags.lowercase().contains(query) ||
-                item.description.lowercase().contains(query)
-
-        val matchesCourse = selectedCourses.contains(item.course)
-        val matchesSemester = selectedSemesters.contains(item.semester)
-
-        val itemTypePlural = when (item.type) {
-            "Лекція" -> "Лекції"
-            "Лабораторна" -> "Лабораторні"
-            else -> item.type
-        }
-        val matchesType = selectedTypes.contains(itemTypePlural) || selectedTypes.contains(item.type)
-
-        val matchesSubject = selectedSubject == null || item.subject == selectedSubject
-
-        matchesTeacherOwnership && matchesFavorite && matchesSearch && matchesCourse && matchesSemester && matchesType && matchesSubject
-    }
+    val catalogFilter = buildCatalogFilter(
+        searchQuery = query,
+        selectedCourses = selectedCourses,
+        selectedSemesters = selectedSemesters,
+        selectedTypes = selectedTypes,
+        selectedSubject = selectedSubject,
+        favoritesOnly = isFavoriteFilterActive,
+        teacherId = if (isTeacher) user.id else null
+    )
+    val filteredItems = materials.filter(catalogFilter::matches)
 
     val totalPages = ((filteredItems.size + CATALOG_PAGE_SIZE - 1) / CATALOG_PAGE_SIZE).coerceAtLeast(1)
     LaunchedEffect(query, selectedCourses, selectedSemesters, selectedTypes, selectedSubject, isFavoriteFilterActive) {

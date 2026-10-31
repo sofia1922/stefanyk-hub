@@ -22,13 +22,13 @@ fun TeacherDifficultyPanel(materials: List<CatalogItem>, modifier: Modifier = Mo
         val stops = ids.map(AppRepository::observeReactions)
         onDispose { stops.forEach { it() } }
     }
-    val reports = rankMaterialDifficulty(owned, AppRepository.materialReactions.toMap())
-    val alerts = reports.filter { it.feedback.needsExplanation }
-    val subjects = subjectDifficulty(reports)
-    val topSubject = subjects.entries.filter { it.value.total > 0 }
-        .maxByOrNull { it.value.difficultyRatio }
+    val facade = remember { DifficultyAnalysisFacade() }
+    val analysis = facade.analyze(owned, AppRepository.materialReactions.toMap())
+    val reports = analysis.rankedMaterials
+    val alerts = analysis.attentionMaterials
+    val topSubject = analysis.mostDifficultSubject
     val hasErrors = ids.any { AppRepository.reactionErrors[it] != null }
-    val positive = reports.filter { it.feedback.isWellReceived }
+    val positive = analysis.positiveMaterials
     var filter by remember { mutableIntStateOf(0) }
     var selectedId by remember { mutableStateOf<Int?>(null) }
     val visible = when (filter) { 1 -> positive; 2 -> alerts; else -> reports }
@@ -60,7 +60,7 @@ fun TeacherDifficultyPanel(materials: List<CatalogItem>, modifier: Modifier = Mo
                 DifficultyNotice(mostDifficult, onClick = { selectedId = mostDifficult.item.id })
             }
         }
-        positive.maxByOrNull { it.feedback.positiveCount }?.let { good ->
+        analysis.bestReceivedMaterial?.let { good ->
             item {
                 Card(
                     onClick = { selectedId = good.item.id },
@@ -73,10 +73,10 @@ fun TeacherDifficultyPanel(materials: List<CatalogItem>, modifier: Modifier = Mo
                 }
             }
         }
-        if (topSubject != null && topSubject.value.concernCount > 0) {
+        if (topSubject != null && topSubject.feedback.concernCount > 0) {
             item {
                 Text(
-                    "Найвищий індекс серед дисциплін із відгуками: ${topSubject.key} — ${topSubject.value.difficultyPercent}% (${topSubject.value.concernCount}/${topSubject.value.total}).",
+                    "Найвищий індекс серед дисциплін із відгуками: ${topSubject.subject} — ${topSubject.feedback.difficultyPercent}% (${topSubject.feedback.concernCount}/${topSubject.feedback.total}).",
                     style = MaterialTheme.typography.bodyMedium
                 )
             }

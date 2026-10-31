@@ -1,0 +1,18 @@
+classDiagram
+TeacherDifficultyPanel --> DifficultyAnalysisFacade : analyze
+DifficultyAnalysisFacade --> DifficultyFeedback : rank and aggregate
+DifficultyAnalysisFacade --> ReactionSummary : select and compare
+DifficultyAnalysisFacade --> DifficultyAnalysis : creates
+TeacherDifficultyPanel --> DifficultyAnalysis : displays
+DifficultyAnalysis --> SubjectDifficulty
+class DifficultyAnalysisFacade {
+  +analyze(materials, summaries) DifficultyAnalysis
+}
+class DifficultyAnalysis {
+  rankedMaterials
+  attentionMaterials
+  positiveMaterials
+  subjectSummaries
+  mostDifficultSubject
+  bestReceivedMaterial
+}

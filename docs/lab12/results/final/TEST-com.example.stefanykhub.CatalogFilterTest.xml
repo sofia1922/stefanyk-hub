@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.stefanykhub.CatalogFilterTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-31T20:24:41.118Z" hostname="DESKTOP-4HLOKTI" time="0.272">
+  <properties/>
+  <testcase name="compositesCanContainOtherComposites" classname="com.example.stefanykhub.CatalogFilterTest" time="0.065"/>
+  <testcase name="searchTrimsAndIgnoresCaseAcrossAllExistingFields" classname="com.example.stefanykhub.CatalogFilterTest" time="0.002"/>
+  <testcase name="builderCombinesSelectionsAndOptionalRestrictions" classname="com.example.stefanykhub.CatalogFilterTest" time="0.05"/>
+  <testcase name="refactoredFilterPreservesLegacyResultsAcross2592Configurations" classname="com.example.stefanykhub.CatalogFilterTest" time="0.126"/>
+  <testcase name="typeAcceptsExistingSingularAndPluralNames" classname="com.example.stefanykhub.CatalogFilterTest" time="0.001"/>
+  <testcase name="anyAcceptsOneMatchingChild" classname="com.example.stefanykhub.CatalogFilterTest" time="0.001"/>
+  <testcase name="emptyAllMatchesAndEmptyAnyRejects" classname="com.example.stefanykhub.CatalogFilterTest" time="0.003"/>
+  <testcase name="absentOptionalRestrictionsAllowOtherTeachersAndNonFavorites" classname="com.example.stefanykhub.CatalogFilterTest" time="0.001"/>
+  <testcase name="allRequiresEveryChildToMatch" classname="com.example.stefanykhub.CatalogFilterTest" time="0.001"/>
+  <testcase name="emptySelectionInAnyRequiredCategoryRejectsMaterials" classname="com.example.stefanykhub.CatalogFilterTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

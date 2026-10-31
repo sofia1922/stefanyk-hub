@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.stefanykhub.DifficultyAnalysisFacadeTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-10-31T20:24:41.399Z" hostname="DESKTOP-4HLOKTI" time="0.04">
+  <properties/>
+  <testcase name="tiedIndicatorsPreserveExistingRankingOrder" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.025"/>
+  <testcase name="subjectComparisonUsesWeightedResponsesRatherThanAveragePercentages" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.002"/>
+  <testcase name="bestReceivedRequiresStablePositiveSignalAndUsesVoteCount" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.007"/>
+  <testcase name="missingAndLoadedEmptyFeedbackRemainDistinguishable" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.002"/>
+  <testcase name="summariesOutsideSelectedMaterialsDoNotAffectAnalysis" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.0"/>
+  <testcase name="facadeRanksAndSeparatesActionableAndPositiveMaterials" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.001"/>
+  <testcase name="repeatedAnalysisUsesCurrentSnapshotWithoutLeakingPreviousResults" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.001"/>
+  <testcase name="emptyInputHasNoInventedResults" classname="com.example.stefanykhub.DifficultyAnalysisFacadeTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
